@@ -26,7 +26,7 @@ public class Usuario {
     private String apellidos;
 
     @Column(name = "dni")
-    private int dni;
+    private String dni;
 
     @Column(name = "contrasenia")
     private String contrasenia;
@@ -38,7 +38,7 @@ public class Usuario {
         super();
     }
 
-    public Usuario(int idusuario, String nombre, String apellidos, int dni, String perfil, String contrasenia) {
+    public Usuario(int idusuario, String nombre, String apellidos, String dni, String perfil, String contrasenia) {
         super();
         this.idusuario = idusuario;
         this.nombre = nombre;
@@ -72,11 +72,11 @@ public class Usuario {
         this.apellidos = apellidos;
     }
 
-    public int getDni() {
+    public String getDni() {
         return dni;
     }
 
-    public void setDni(int dni) {
+    public void setDni(String dni) {
         this.dni = dni;
     }
 
