@@ -1,7 +1,5 @@
-package com.clinidog.clinidog.security;
+package com.apisecurityapp.api_we_repass.config;
 
-import com.clinidog.clinidog.model.Usuarios;
-import com.clinidog.clinidog.repository.UsuariosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,7 +8,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,8 +27,6 @@ import java.util.Optional;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Autowired
-    private UsuariosRepository usuariosRepository;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -40,13 +35,11 @@ public class SecurityConfig {
                 .cors() // Habilita la configuración CORS
                 .and()
                 .authorizeRequests()
-                .requestMatchers("/usuarios/**").permitAll()
+                .requestMatchers("/api/usuario/**").permitAll()
+                .requestMatchers("/api/ver/**").permitAll()
+                .requestMatchers("/api/crear/**").permitAll()
+                .requestMatchers("/api/usuario/login").permitAll()  // Asegura que login está permitido
                 .requestMatchers("/auth/**").permitAll()
-                .requestMatchers("/admin/**").hasAuthority("ADMIN")
-                .requestMatchers("/usuario/**").hasAuthority("USUARIO")
-                .requestMatchers(HttpMethod.OPTIONS, "/auth/login").permitAll() // Permite OPTIONS para /auth/login
-                .requestMatchers("/vacunas/**").permitAll()
-                .requestMatchers("/mascotas/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic();
@@ -57,25 +50,6 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
-    }
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return new UserDetailsService() {
-            @Override
-            public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-                Optional<Usuarios> optionalUsuario = usuariosRepository.findByEmail(email);
-                if (optionalUsuario.isPresent()) {
-                    Usuarios usuario = optionalUsuario.get();
-                    return new org.springframework.security.core.userdetails.User(
-                            usuario.getEmail(),
-                            usuario.getContrasena(),
-                            Collections.singleton(new SimpleGrantedAuthority("ROLE_" + usuario.getRol()))
-                    );
-                } else {
-                    throw new UsernameNotFoundException("Usuario no encontrado");
-                }
-            }
-        };
     }
 
 
@@ -90,8 +64,5 @@ public class SecurityConfig {
         return source;
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+
 }
