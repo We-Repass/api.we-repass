@@ -16,4 +16,9 @@ public interface PreguntaRespository extends CrudRepository<Pregunta, Long> {
             @Param("opciones") String opciones,
             @Param("respuesta") String respuesta
     );
+
+    @Query(value = "SELECT f_ver_examen(:idsemana)", nativeQuery = true)
+    String VerExamen(
+            @Param("idsemana") int idsemana
+    );
 }

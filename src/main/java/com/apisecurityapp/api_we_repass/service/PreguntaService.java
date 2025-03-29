@@ -1,6 +1,7 @@
 package com.apisecurityapp.api_we_repass.service;
 
 import com.apisecurityapp.api_we_repass.repository.Pregunta;
+import com.apisecurityapp.api_we_repass.repository.Usuario;
 import com.apisecurityapp.api_we_repass.repositoryI.PreguntaRespository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -41,4 +42,9 @@ public class PreguntaService {
     private String convertListToJson(List<String> list) throws JsonProcessingException {
         return objectMapper.writeValueAsString(list);
     }
+
+    public String VerExamen(int idsemana) throws Exception {
+        return preguntaRespository.VerExamen(idsemana); // Pasar solo el idsemana
+    }
+
 }
