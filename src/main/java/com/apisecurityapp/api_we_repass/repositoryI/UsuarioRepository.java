@@ -12,4 +12,8 @@ public interface UsuarioRepository extends CrudRepository<Usuario, Long> {
 
     @Query(value = "SELECT f_inicio_sesion(:usuario, :contrasenia)", nativeQuery = true)
     String inicioSesion(@Param("usuario") String usuario, @Param("contrasenia") String contrasenia);
+
+    @Query(value = "SELECT f_lista_alumnos()", nativeQuery = true)
+    String listarAlumnos();
+
 }

@@ -41,6 +41,13 @@ public class WeRepassController {
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/usuario/lista/alumnos", method = RequestMethod.GET)
+    public ResponseEntity<?> listarAlumnos() throws Exception {
+
+        String data = usuarioServicio.listarAlumnos();
+        return new ResponseEntity<>(data, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/ver/semana", method = RequestMethod.GET)
     public ResponseEntity<?> verSemana() throws Exception {
 

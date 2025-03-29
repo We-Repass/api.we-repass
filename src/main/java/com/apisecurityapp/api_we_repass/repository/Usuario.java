@@ -12,6 +12,9 @@ import jakarta.persistence.*;
                 @StoredProcedureParameter(mode = ParameterMode.IN, name = "in_password", type = String.class),
                 @StoredProcedureParameter(mode = ParameterMode.OUT, name = "resultado", type = String.class) }),
 
+        @NamedStoredProcedureQuery(name = "f_lista_alumnos", procedureName = "f_lista_alumnos", parameters = {
+                @StoredProcedureParameter(mode = ParameterMode.OUT, name = "resultado", type = String.class) }),
+
 })
 public class Usuario {
 
