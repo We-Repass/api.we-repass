@@ -18,6 +18,10 @@ import java.util.List;
                 @StoredProcedureParameter(mode = ParameterMode.IN, name = "in_respuesta", type = String.class),
                 @StoredProcedureParameter(mode = ParameterMode.OUT, name = "resultado", type = String.class) }),
 
+        @NamedStoredProcedureQuery(name = "f_ver_examen", procedureName = "f_ver_examen", parameters = {
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "in_idsemana", type = Integer.class),
+                @StoredProcedureParameter(mode = ParameterMode.OUT, name = "resultado", type = String.class) }),
+
 })
 public class Pregunta {
     @Id
