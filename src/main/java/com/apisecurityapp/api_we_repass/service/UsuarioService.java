@@ -19,4 +19,7 @@ public class UsuarioService {
         );
     }
 
+    public String listarAlumnos() throws  Exception{
+        return usuarioRepository.listarAlumnos();
+    }
 }
