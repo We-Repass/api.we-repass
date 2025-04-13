@@ -11,6 +11,8 @@ import java.sql.Time;
         @NamedStoredProcedureQuery(name = "f_ver_semana", procedureName = "f_ver_semana", parameters = {
                 @StoredProcedureParameter(mode = ParameterMode.OUT, name = "resultado", type = String.class) }),
 
+
+
 })
 public class Semana {
 
