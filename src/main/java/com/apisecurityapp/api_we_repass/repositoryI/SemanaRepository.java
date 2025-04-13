@@ -9,4 +9,5 @@ public interface SemanaRepository extends CrudRepository<Semana, Long> {
 
     @Query(value = "SELECT f_ver_semana()", nativeQuery = true)
     String verSemana();
+
 }

@@ -1,8 +1,11 @@
 package com.apisecurityapp.api_we_repass.controller;
 
 import com.apisecurityapp.api_we_repass.repository.Pregunta;
+import com.apisecurityapp.api_we_repass.repository.Respuesta;
 import com.apisecurityapp.api_we_repass.repository.Usuario;
+import com.apisecurityapp.api_we_repass.repositoryI.RespuestaRepository;
 import com.apisecurityapp.api_we_repass.service.PreguntaService;
+import com.apisecurityapp.api_we_repass.service.RespuestaService;
 import com.apisecurityapp.api_we_repass.service.SemanaService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +37,9 @@ public class WeRepassController {
     @Autowired
     private PreguntaService preguntaService;
 
+    @Autowired
+    private RespuestaService respuestaService;
+
     //USUARIO
 
     @RequestMapping(value = "/usuario/login", method = RequestMethod.POST)
@@ -59,6 +65,8 @@ public class WeRepassController {
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
+
+
     //EXAMEN
 
     @RequestMapping(value = "/crear/examen", method = RequestMethod.POST)
@@ -79,7 +87,6 @@ public class WeRepassController {
 
     @RequestMapping(value = "/ver/examen", method = RequestMethod.POST)
     public ResponseEntity<?> VerExamen(@RequestBody Map<String, Integer> requestBody) throws Exception {
-        // Extraemos el idsemana del mapa
         Integer idsemana = requestBody.get("idsemana");
         if (idsemana == null) {
             return new ResponseEntity<>("idsemana es requerido", HttpStatus.BAD_REQUEST);
@@ -89,6 +96,26 @@ public class WeRepassController {
         String data = preguntaService.VerExamen(idsemana); // Enviar solo el idsemana
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
+
+    //RESPUESTAS
+
+    @RequestMapping(value = "/guardar/respuesta", method = RequestMethod.POST)
+    public ResponseEntity<?> guardarRespuesta(@RequestBody List<Respuesta> respuestas) throws Exception {
+        String data = respuestaService.guardarRespuesta(respuestas);
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Respuesta guardado con éxito");
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/ver/nota", method = RequestMethod.POST)
+    public ResponseEntity<?> verNota(@RequestBody Respuesta respuestas) throws Exception {
+
+        String data = respuestaService.verNota(respuestas);
+        return new ResponseEntity<>(data, HttpStatus.OK);
+    }
+
 
 
 }
