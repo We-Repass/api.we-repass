@@ -58,7 +58,8 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedOrigin("http://localhost:4200"); // Permite solicitudes desde Angular
+        //config.addAllowedOrigin("http://localhost:4200"); // Permite solicitudes desde Angular
+        config.addAllowedOrigin("https://we-repass.web.app");
         config.addAllowedHeader("*"); // Permite todos los encabezados
         config.addAllowedMethod("*"); // Permite todos los métodos (GET, POST, etc.)
         source.registerCorsConfiguration("/**", config);

@@ -13,6 +13,7 @@ public interface RespuestaRepository extends CrudRepository<Respuesta, Long> {
                             @Param("idusuario") int idusuario,
                             @Param("respuesta") String respuesta);
 
-    @Query(value = "SELECT f_ver_nota()", nativeQuery = true)
+    @Query(value = "SELECT f_ver_nota(:idusuario)", nativeQuery = true)
     String verNota(@Param("idusuario") int idusuario);
+
 }
